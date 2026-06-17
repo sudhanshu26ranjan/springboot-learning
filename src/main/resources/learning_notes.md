@@ -37,4 +37,21 @@
   Repository (handles persistence)
   ↓
   Database
-## 
+## @Service Annotation 
+- It tells Spring: Please create and manage an object of this service-class inside the Spring Container
+- Imagine tomorrow:
+- PlayerService
+  ↓
+  PlayerRepository
+  ↓
+  DatabaseConnection
+- With Spring: no need to create object manually, Spring will create, wire and manages.
+## IoC (Inversion of Control)
+- Control moved from developer to container. for: 
+- creating, managing, objects & it's life cycle.
+## object creation order in spring: 
+- It must be in DAG (Directed Acyclic Graph) fashion. No cycles in object creation. 
+- otherwise, circular wait (deadlock situation), Spring-boot will not start itself and throws error (fail-fast).
+## Spring startup work-flow:
+- Scan packages -> Find annotations -> Build bean definitions -> Build dependency graph -> Validate graph -> Create singleton beans -> Start application
+- 

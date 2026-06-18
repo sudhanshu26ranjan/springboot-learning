@@ -54,4 +54,40 @@
 - otherwise, circular wait (deadlock situation), Spring-boot will not start itself and throws error (fail-fast).
 ## Spring startup work-flow:
 - Scan packages -> Find annotations -> Build bean definitions -> Build dependency graph -> Validate graph -> Create singleton beans -> Start application
-- 
+## why explicit 'empty/default/no-arg' constructor is needed ?
+- When framework/library (jackson in spring-boot) needs to create object, it can't guess which parameterized constructors to be called, In which order parameter's needs to be passed in constructor. 
+- Hence, Better, create an empty object first. 
+- Then populate/initialize that object. 
+- Which means setter method is also needed along with default constructor. 
+## java bean class
+- means it contains: No-Arg Constructor + Getters + Setters
+## unknown filed sent by browser (http request)
+- Either extra unknown fields or spell mismatch field then ? 
+- option A: ignore unknow field and serve 200 response with other correct field. Compatibility/Flexibility achieved.
+- option B: strictness/fail-fast/Potentially dangerous. hence throw error and highlight the issue.
+## how to keep some unusual things happening in production are informed ?
+- Like: Unknown JSON fields,  High response times, Database retries, Memory pressure, Cache misses
+- Many systems continue working while simultaneously informing operators. Think in that way. 
+## Summary: 
+- Feature	Problem Being Solved
+- @Service	Separation of concerns
+- DI	    Object creation & wiring
+- @Primary	Multiple implementations
+- @Qualifier	Explicit selection
+- DTO	    Prevent overexposing entities
+- Validation	Protect business rules
+- Jackson	Object ↔ JSON conversion
+- Fail-fast startup	Catch configuration errors early
+## Spring Request-Validation order: 
+- Validation checks all validation for better user experience.
+- It validates all validation, even if previous ones fails. 
+- And returns all the errors, instead of one-by-one. This is a good user experience. 
+- So this is no "fail-fast" as this is intended for user experience not application based.
+## spring debugging: 
+- When something goes wrong, I ask:
+- Did JSON parse?
+- Did object get created?
+- Did validation pass?
+- Did controller execute?
+- Did service execute?
+- Did repository execute?

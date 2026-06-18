@@ -1,21 +1,26 @@
 package sping.revision.playermngmnt.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.NotBlank;
 
 public class Player {
-    private final int id;
-    private final String name;
-    private final String position;
-    private final String nickName;
-    @JsonIgnore
-    private final String password;
+    @NotNull(message = "Id is required")
+    @Positive(message = "Id must be positive")
+    private int id;
+    @NotBlank
+    private String name;
+    @NotBlank
+    private String position;
 
-    public Player(int id, String name, String position, String nickName, String password) {
+    public Player(int id, String name, String position) {
         this.id = id;
         this.name = name;
         this.position = position;
-        this.nickName = nickName;
-        this.password = password;
+    }
+
+    public Player() {
     }
 
     public int getId() {
@@ -30,11 +35,15 @@ public class Player {
         return position;
     }
 
-    public String getNickName() {
-        return nickName;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getPassword() {
-        return password;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 }

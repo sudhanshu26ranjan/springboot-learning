@@ -9,9 +9,9 @@ import java.util.List;
 public class PlayerService {
     public List<Player> getPlayer() {
         return List.of(
-                new Player(1,"Pranshu", "Forward", "Champ", "Kinu@123456"),
-                new Player(2, "Messi", "Forward", "magic", "magic10"),
-                new Player(3, "Ronaldo", "Forward", "goal machine", "CR7")
+                new Player(1,"Pranshu", "Forward"),
+                new Player(2, "Messi", "Forward"),
+                new Player(3, "Ronaldo", "Forward")
                 );
     }
 }

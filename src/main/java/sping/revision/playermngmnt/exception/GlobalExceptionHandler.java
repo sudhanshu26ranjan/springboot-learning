@@ -12,6 +12,10 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    public GlobalExceptionHandler() {
+        System.out.println("GlobalExceptionHandler constructor() invoked...");
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
 //    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Map<String, String>> handleValidationException(
@@ -36,7 +40,7 @@ public class GlobalExceptionHandler {
 //    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<Map<String, String>> handleRuntimeException(
             RuntimeException ex) {
-
+        System.out.println("GlobalExceptionHandler.handleRuntimeException() called.");
         Map<String, String> error = new HashMap<>();
 
         error.put("error", ex.getMessage());

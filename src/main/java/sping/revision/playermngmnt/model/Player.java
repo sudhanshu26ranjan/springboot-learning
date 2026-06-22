@@ -8,16 +8,20 @@ import jakarta.validation.constraints.NotBlank;
 public class Player {
     @NotNull(message = "Player Id is required")
     @Positive(message = "Player Id must be positive")
-    private int id;
+    private Integer id;
     @NotBlank(message = "Player name is required")
     private String name;
     @NotBlank(message = "Position is required")
     private String position;
+    @NotNull(message = "Player Id is required")
+    @Positive(message = "Player Id must be positive")
+    private Integer age;
 
-    public Player(int id, String name, String position) {
+    public Player(int id, String name, String position, Integer age) {
         this.id = id;
         this.name = name;
         this.position = position;
+        this.age = age;
     }
 
     public Player() {
@@ -35,7 +39,7 @@ public class Player {
         return position;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -45,5 +49,13 @@ public class Player {
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 }

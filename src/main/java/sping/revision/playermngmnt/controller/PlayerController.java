@@ -14,6 +14,7 @@ public class PlayerController {
 
     public PlayerController(PlayerService playerService) {
         this.playerService = playerService;
+        System.out.println("PlayerController created!");
     }
 
     @GetMapping("/players")
@@ -33,7 +34,7 @@ public class PlayerController {
 
     @PostMapping("/players")
     public Player createPlayer(@Valid @RequestBody Player player){
-        return player;
+        return playerService.createPlayer(player);
     }
 
     @GetMapping("/test")

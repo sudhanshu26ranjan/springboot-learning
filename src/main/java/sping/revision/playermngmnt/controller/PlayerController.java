@@ -1,10 +1,8 @@
 package sping.revision.playermngmnt.controller;
 
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import sping.revision.playermngmnt.exception.PlayerNotFoundException;
 import sping.revision.playermngmnt.model.Player;
 import sping.revision.playermngmnt.service.PlayerService;
 
@@ -23,9 +21,24 @@ public class PlayerController {
         return playerService.getPlayer();
     }
 
+    @GetMapping("/players/{id}")
+    public String getPlayer(
+            @PathVariable Integer id) {
+
+        throw new PlayerNotFoundException(
+                "Player not found with id "
+                        + id
+        );
+    }
+
     @PostMapping("/players")
     public Player createPlayer(@Valid @RequestBody Player player){
         return player;
+    }
+
+    @GetMapping("/test")
+    public String testException() {
+        throw new RuntimeException("Something Went Wrong...");
     }
 }
 

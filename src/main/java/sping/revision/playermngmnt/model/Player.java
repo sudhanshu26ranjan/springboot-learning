@@ -6,12 +6,12 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.NotBlank;
 
 public class Player {
-    @NotNull(message = "Id is required")
-    @Positive(message = "Id must be positive")
+    @NotNull(message = "Player Id is required")
+    @Positive(message = "Player Id must be positive")
     private int id;
-    @NotBlank
+    @NotBlank(message = "Player name is required")
     private String name;
-    @NotBlank
+    @NotBlank(message = "Position is required")
     private String position;
 
     public Player(int id, String name, String position) {

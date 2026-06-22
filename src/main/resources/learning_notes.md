@@ -91,3 +91,74 @@
 - Did controller execute?
 - Did service execute?
 - Did repository execute?
+## @Valid 
+- It triggers the validation engine of spring. 
+- otherwise, validation will not happen irrespective of @NotNull, ... etc. present at field level or not.
+## @RestControllerAdvice
+- Which means the following: 
+  - Validation failed.
+  - Spring has all the error details.
+  - How do WE expose them nicely to API consumers?
+- Control flow: Jackson --> Validation Engine --> Controller Method -> ...
+## @RestControllerAdvice
+- Global Exception Handler, some central place for the whole application & controllers.
+- This class watches all controllers.
+  - The class annotated with @RestControllerAdvice (GlobalExceptionHandler):
+    - Gets scanned during start up and look up registry (table) for exception handling is being formed like:
+      - Exception Registry
+      -     MethodArgumentNotValidException
+      -     ↓
+      -     GlobalExceptionHandler.handleValidationException()
+      - PlayerNotFoundException
+      -     ↓
+      - GlobalExceptionHandler.handlePlayerNotFound()
+      -     IllegalArgumentException
+      -     ↓
+      -     GlobalExceptionHandler.handleIllegalArgument()
+- @RestControllerAdvice can handle ANY exception type. Not just validation failure exception.
+
+## MethodArgumentNotValidException ex: 
+- This class in exception contains: metadata of validation details.
+- "data binding" + "validation". 
+- @NotBlank
+-  ↓
+-  Validation Engine
+-  ↓
+-  MethodArgumentNotValidException
+-  ↓
+-  BindingResult
+-  ↓
+-  FieldErrors
+-  ↓
+-  Map
+-  ↓
+-  JSON Response
+
+## NOTE
+- Spring performs scanning, annotation reading, dependency graph building, fail-fast checks during startup.
+## more flow for successful use-case: 
+JSON
+↓
+Jackson
+↓
+Player Object
+↓
+Validation
+↓
+SUCCESS
+↓
+Controller Method
+↓
+Return Player
+↓
+Jackson Serialization
+↓
+JSON Response
+
+## @ResponseStatus vs ResponseEntity 
+- when status is fixed and static use @ResponseStatus annotation. easy and clean.
+- Use ResponseEntity when status depends on runtime conditions.
+## full Normal flow control of Spring-Boot
+- Request ↓ Jackson ↓ Validation ↓ Controller ↓ Service ↓ Repository ↓ Database.
+## Exception flow control in Spring-Boot
+- Exception Raised  ↓   Spring Exception Resolution   ↓  Find Best Matching @ExceptionHandler   ↓   Invoke Handler Method   ↓  Build ResponseEntity   ↓   HTTP Response Returned
